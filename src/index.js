@@ -3,11 +3,12 @@ export default function (max) {
 	var limit = max || 1;
 
 	function keep(key, value) {
-		curr[key] = value;
-		if (++num === limit) {
+		if (++num > limit) {
 			prev = curr;
 			reset(1);
+			++num;
 		}
+		curr[key] = value;
 	}
 
 	function reset(isPartial) {
