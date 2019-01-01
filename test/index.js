@@ -56,34 +56,46 @@ test('ordering', t => {
 	let foo = flru(3);
 	const keys = (arr, bool) => t.is(arr.every(foo.has), bool, `[${arr.toString()}] ~> ${bool ? '' : 'un'}known`);
 
+	// A=[a,b,c]  &  S=[]
 	['a', 'b', 'c'].forEach(foo.set);
 	keys(['a', 'b', 'c'], true);
 
-	t.pass(`>> set('d')`);
+	t.pass(`>> set('d')`); // A=[d]  &  S=[a,b,c]
 	t.is(foo.set('d', 4), undefined, '~> returns nothing');
 	keys(['a', 'b', 'c', 'd'], true);
 
-	t.pass(`>> set('e')`);
 	foo.set('e', 5);
+	t.pass(`>> set('e')`);
+	// A=[d,e]  &  S=[a,b,c]
 	keys(['a', 'b', 'c', 'd', 'e'], true); // 2n - 1
 
-	t.pass(`>> set('f')`);
 	foo.set('f', 6);
+	t.pass(`>> set('f')`);
+	// A=[d,e,f]  &  S=[a,b,c]
 	keys(['d', 'e', 'f'], true);
+	keys(['a', 'b', 'c'], true); //=> stale
+
+	foo.set('g', 7);
+	t.pass(`>> set('g')`);
+	// A=[g]  &  S=[d,e,f]
+	keys(['d', 'e', 'f', 'g'], true);
 	keys(['a', 'b', 'c'], false); // purged
 
-	t.pass(`>> set('g')`);
-	foo.set('g', 7);
-	keys(['d', 'e', 'f', 'g'], true);
-
 	t.pass(`>> get('e')`);
+	// A=[g,e]  &  S=[d,e,f]
 	t.is(foo.get('e'), 5, '~> returns item value');
 	keys(['d', 'e', 'f', 'g'], true); // unchanged, altho "e" exists twice
 
-	t.pass(`>> get('d')`);
 	foo.get('d');
-	keys(['d', 'e', 'g'], true); // purged after "e" and "d" copied over
-	keys(['f'], false);
+	t.pass(`>> get('d')`);
+	// A=[g,e,d]  &  S=[d,e,f]
+	keys(['g', 'e', 'd', 'f'], true);
+
+	foo.set('a', 1);
+	t.pass(`>> set('a'`);
+	// A=[a]  &  S=[g,e,d]
+	keys(['a', 'g', 'e', 'd'], true);
+	keys(['f'], false); // purged
 
 	t.end();
 });
