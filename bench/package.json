@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@arr/foreach": "^1.0.0",
+    "benchmark": "^2.1.4",
+    "lru-cache": "^5.1.1",
+    "mri": "^1.1.4",
+    "tiny-lru": "^5.0.6",
+    "tmp-cache": "^1.0.0"
+  }
+}
