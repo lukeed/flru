@@ -1,6 +1,6 @@
 # flru [![Build Status](https://travis-ci.org/lukeed/flru.svg?branch=master)](https://travis-ci.org/lukeed/flru)
 
-> A tiny (216B) and fast Least Recently Used (LRU) cache
+> A tiny (215B) and fast Least Recently Used (LRU) cache
 
 Internally, two caches are kept. This is because it's far more performant to swap (and maintain) dictionaries than it is to `delete`/purge keys on every read/write interaction. Because of this, `flru` will store `2n` items in memory, where `n` is the [`max`](#max) limit. In practice, this means that with `max=3` and items `(a, b, c)` already written, writing a `d` value ***will not*** automatically purge the `a` key. Instead, `a` _can_ be retrieved, which would move it to the "active" cache. It's only when this "active" half exceeds the `max` that the "stale" half is purged.
 
