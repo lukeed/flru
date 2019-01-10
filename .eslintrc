@@ -1,0 +1,49 @@
+{
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"extends": [
+		"standard",
+		"plugin:import/errors",
+		"plugin:import/warnings"
+	],
+	"rules": {
+		"import/order": 2,
+		"import/first": 2,
+		"import/no-mutable-exports": 2,
+		"import/no-unresolved": 0,
+		"arrow-parens": [
+			2,
+			"as-needed",
+			{
+				"requireForBlockBody": true
+			}
+		],
+		"generator-star-spacing": 0,
+		"no-debugger": 2,
+		"no-console": 2,
+		"prefer-const": [
+			2,
+			{
+				"destructuring": "any",
+				"ignoreReadBeforeAssign": false
+			}
+		],
+		"no-lonely-if": 2,
+		"curly": [
+			2,
+			"all"
+		],
+		"require-await": 2,
+		"dot-notation": 2,
+		"no-var": 2,
+		"space-before-function-paren": [
+			2,
+			{
+				"anonymous": "always",
+				"named": "never"
+			}
+		]
+	}
+}
