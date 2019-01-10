@@ -1,19 +1,19 @@
 const test = require('tape')
-const flru = require('../dist/flru')
+const Flru = require('../dist/flru')
 
 const isObject = x => Object.prototype.toString.call(x, '[object Object]')
 
 test('exports', (t) => {
   const keys = ['has', 'clear', 'get', 'set']
-  t.is(typeof flru, 'function', 'exports a function')
+  t.is(typeof Flru, 'function', 'exports a function')
 
-  const foo = new flru()
+  const foo = new Flru()
   t.true(isObject(foo), 'works with `new` keyword')
   keys.forEach((k) => {
     t.is(typeof foo[k], 'function', `~> has "${k}" method`)
   })
 
-  const bar = flru()
+  const bar = Flru()
   t.true(isObject(bar), 'works without `new` keyword')
   keys.forEach((k) => {
     t.is(typeof bar[k], 'function', `~> has "${k}" method`)
@@ -24,7 +24,7 @@ test('exports', (t) => {
 
 test('has()', (t) => {
   const key = 'a'
-  const foo = flru()
+  const foo = Flru()
 
   foo.set(key, 1)
   t.is(foo.has(key), true, '~> returns `true` when known')
@@ -34,7 +34,7 @@ test('has()', (t) => {
 })
 
 test('clear()', (t) => {
-  const foo = flru(3)
+  const foo = Flru(3)
   const keys = ['a', 'b', 'c']
 
   keys.forEach(foo.set)
@@ -53,7 +53,7 @@ test('clear()', (t) => {
 })
 
 test('ordering', (t) => {
-  const foo = flru(3)
+  const foo = Flru(3)
   const keys = (arr, bool) => t.is(arr.every(foo.has), bool, `[${arr.toString()}] ~> ${bool ? '' : 'un'}known`);
 
   // A=[a,b,c]  &  S=[]
