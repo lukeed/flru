@@ -19,7 +19,7 @@
     "build": "bundt",
     "pretest": "npm run build",
     "test": "yarn lint && tape test/*.js | tap-spec",
-    "lint": "eslint ."
+    "lint": "eslint src test"
   },
   "files": [
     "dist"
