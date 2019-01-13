@@ -22,8 +22,8 @@ export default function (max) {
 	return {
 		clear: reset,
 		has: function (key) {
-      return curr[key] !== void 0 || prev[key] !== void 0;
-    },
+			return curr[key] !== void 0 || prev[key] !== void 0;
+		},
 		get: function (key) {
 			var val = curr[key];
 			if (val !== void 0) return val;
