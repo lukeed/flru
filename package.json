@@ -29,6 +29,7 @@
     "lru-cache",
     "mru"
   ],
+  "typings": "./index.d.ts",
   "devDependencies": {
     "bundt": "^0.1.1",
     "tap-spec": "^5.0.0",
