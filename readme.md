@@ -110,7 +110,7 @@ Type: `Mixed`
 The item's value to be cached.
 
 
-### flru.cache(keepOld)
+### flru.clear(keepOld)
 Return: `undefined`
 
 Reset the cache(s) and counter.
