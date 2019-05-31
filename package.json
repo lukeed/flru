@@ -1,6 +1,6 @@
 {
   "name": "flru",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "lukeed/flru",
   "description": "A tiny (215B) and fast Least Recently Used (LRU) cache",
   "unpkg": "dist/flru.min.js",
