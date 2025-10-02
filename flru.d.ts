@@ -5,6 +5,4 @@ export interface flruCache<T = any> {
   set(key: string, value: T): void;
 }
 
-declare const flru: <T = any>(max: number) => flruCache<T>;
-
-export default flru;
+export function flru<T = any>(max: number): flruCache<T>;
