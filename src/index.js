@@ -1,4 +1,4 @@
-export default function (max) {
+export function flru(max) {
 	var num, curr, prev;
 	var limit = max || 1;
 
