@@ -18,6 +18,7 @@
   },
   "scripts": {
     "build": "tsc && bundt",
+    "types": "tsc --noEmit",
     "pretest": "npm run build",
     "test": "tape test/*.js | tap-spec"
   },
