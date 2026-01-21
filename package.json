@@ -6,7 +6,7 @@
   "unpkg": "dist/flru.min.js",
   "module": "dist/flru.mjs",
   "main": "dist/flru.js",
-  "types": "flru.d.ts",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "author": {
     "name": "Luke Edwards",
@@ -17,7 +17,7 @@
     "node": ">=6"
   },
   "scripts": {
-    "build": "bundt",
+    "build": "tsc && bundt dist/index.js",
     "pretest": "npm run build",
     "test": "tape test/*.js | tap-spec"
   },
@@ -34,6 +34,7 @@
   "devDependencies": {
     "bundt": "^0.4.0",
     "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "tape": "^4.9.1",
+    "typescript": "^5.9.3"
   }
 }
