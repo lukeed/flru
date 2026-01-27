@@ -3,10 +3,9 @@
   "version": "1.0.2",
   "repository": "lukeed/flru",
   "description": "A tiny (215B) and fast Least Recently Used (LRU) cache",
-  "unpkg": "dist/flru.min.js",
-  "module": "dist/flru.mjs",
-  "main": "dist/flru.js",
-  "types": "flru.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "author": {
     "name": "Luke Edwards",
@@ -17,12 +16,11 @@
     "node": ">=6"
   },
   "scripts": {
-    "build": "bundt",
+    "build": "tsc",
     "pretest": "npm run build",
-    "test": "tape test/*.js | tap-spec"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "files": [
-    "*.d.ts",
     "dist"
   ],
   "keywords": [
@@ -32,8 +30,10 @@
     "mru"
   ],
   "devDependencies": {
-    "bundt": "^0.4.0",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.0.0",
+    "@types/jest": "^29.0.0",
+    "ts-jest": "^29.0.0"
   }
 }
