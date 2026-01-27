@@ -1,5 +1,5 @@
 const test = require('tape');
-const flru = require('../dist/flru');
+const flru = require('../dist/index').default;
 
 const isObject = x => Object.prototype.toString.call(x, '[object Object]');
 
