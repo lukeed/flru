@@ -1,4 +1,5 @@
-import flru, { FlruCache } from '../src/index';
+import { describe, test, expect } from 'bun:test';
+import flru from '../src/index';
 
 const isObject = (x: unknown): boolean => Object.prototype.toString.call(x) === '[object Object]';
 

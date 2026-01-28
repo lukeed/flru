@@ -18,7 +18,7 @@
   "scripts": {
     "build": "tsc",
     "pretest": "npm run build",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "bun test"
   },
   "files": [
     "dist"
@@ -31,9 +31,6 @@
   ],
   "devDependencies": {
     "typescript": "^5.0.0",
-    "@types/node": "^20.0.0",
-    "jest": "^29.0.0",
-    "@types/jest": "^29.0.0",
-    "ts-jest": "^29.0.0"
+    "@types/bun": "^1.0.0"
   }
 }
