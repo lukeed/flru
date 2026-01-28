@@ -17,9 +17,9 @@
     "node": ">=6"
   },
   "scripts": {
-    "build": "bundt",
+    "build": "tsc && bundt",
     "pretest": "npm run build",
-    "test": "tape test/*.js | tap-spec"
+    "test": "tape dist/test/index.js | tap-spec"
   },
   "files": [
     "*.d.ts",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "bundt": "^0.4.0",
     "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "tape": "^4.9.1",
+    "typescript": "^5.0.0"
   }
 }
