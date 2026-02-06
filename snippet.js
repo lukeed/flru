@@ -1,21 +1,45 @@
-import flru from './src/index.js';
+```js
+export default function (max) {
+	var num, curr, prev;
+	var limit = max || 1;
 
-// Create a cache with max 3 items
-const cache = flru(3);
+	function keep(key, value) {
+		if (++num > limit) {
+			prev = curr;
+			reset(1);
+			++num;
+		}
+		curr[key] = value;
+	}
 
-// Set some values
-cache.set('foo', 'bar');
-cache.set('hello', 'world');
-cache.set('key', 'value');
+	function reset(isPartial) {
+		num = 0;
+		curr = Object.create(null);
+		isPartial || (prev=Object.create(null));
+	}
 
-// Get a value
-console.log(cache.get('foo')); // 'bar'
+	reset();
 
-// Check if key exists
-console.log(cache.has('hello')); // true
-
-// Add more items (will rotate old ones)
-cache.set('new', 'item');
-
-// Clear the cache
-cache.clear();
+	return {
+		clear: reset,
+		has: function (key) {
+			return curr[key] !== void 0 || prev[key] !== void 0;
+		},
+		get: function (key) {
+			var val = curr[key];
+			if (val !== void 0) return val;
+			if ((val=prev[key]) !== void 0) {
+				keep(key, val);
+				return val;
+			}
+		},
+		set: function (key, value) {
+			if (curr[key] !== void 0) {
+				curr[key] = value;
+			} else {
+				keep(key, value);
+			}
+		}
+	};
+}
+```
