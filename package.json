@@ -7,6 +7,13 @@
   "module": "dist/flru.mjs",
   "main": "dist/flru.js",
   "types": "flru.d.ts",
+  "exports": {
+    ".": {
+      "types": "./flru.d.ts",
+      "import": "./dist/flru.mjs",
+      "require": "./dist/flru.js"
+    }
+  },
   "license": "MIT",
   "author": {
     "name": "Luke Edwards",
