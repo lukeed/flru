@@ -99,3 +99,63 @@ test('ordering', t => {
 
 	t.end();
 });
+
+test('undefined values in either cache', t => {
+	let foo = flru(2);
+	foo.set('a', undefined);
+	t.true(foo.has('a'), '~> undefined is present in the active cache');
+	t.is(foo.get('a'), undefined, '~> returns the active value');
+
+	foo.set('b', false);
+	foo.set('c', null);
+	t.true(foo.has('a'), '~> undefined is present in the stale cache');
+	t.is(foo.get('c'), null, '~> still returns null');
+	t.is(foo.get('b'), false, '~> still returns false');
+	t.is(foo.get('missing'), undefined, '~> missing keys still return undefined');
+	t.false(foo.has('missing'), '~> a missing key is not present');
+	t.end();
+});
+
+test('undefined overwrites a stale value', t => {
+	let foo = flru(2);
+	foo.set('a', 1);
+	foo.set('b', 2);
+	foo.set('c', 3);
+	foo.set('a', undefined);
+
+	t.is(foo.get('a'), undefined, '~> does not restore the old value');
+	t.true(foo.has('a'), '~> the updated key is present');
+	t.is(foo.get('c'), 3, '~> preserves the other active value');
+	t.end();
+});
+
+test('updating undefined does not count a key twice', t => {
+	let foo = flru(2);
+	foo.set('a', 1);
+	foo.set('b', undefined);
+	foo.set('b', undefined);
+	foo.set('c', 3);
+	foo.set('d', 4);
+
+	t.true(foo.has('a'), '~> updating b did not rotate the caches early');
+	foo.set('e', 5);
+	t.false(foo.has('a'), '~> the next insertion purges the stale cache');
+	t.is(foo.get('c'), 3, '~> preserves the newly stale value');
+	t.end();
+});
+
+test('get() promotes a stale undefined value', t => {
+	let foo = flru(2);
+	foo.set('a', undefined);
+	foo.set('b', 2);
+	foo.set('c', 3);
+
+	t.is(foo.get('a'), undefined, '~> returns the stale value');
+	foo.set('d', 4);
+	t.false(foo.has('b'), '~> promotion filled the active cache before d');
+	t.true(foo.has('a'), '~> the promoted key survives the rotation');
+	t.is(foo.get('c'), 3, '~> preserves the other stale value');
+	foo.set('e', 5);
+	t.false(foo.has('a'), '~> an untouched undefined entry is eventually evicted');
+	t.end();
+});
