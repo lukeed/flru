@@ -22,18 +22,18 @@ export default function (max) {
 	return {
 		clear: reset,
 		has: function (key) {
-			return curr[key] !== void 0 || prev[key] !== void 0;
+			return key in curr || key in prev;
 		},
 		get: function (key) {
-			var val = curr[key];
-			if (val !== void 0) return val;
-			if ((val=prev[key]) !== void 0) {
+			if (key in curr) return curr[key];
+			if (key in prev) {
+				var val = prev[key];
 				keep(key, val);
 				return val;
 			}
 		},
 		set: function (key, value) {
-			if (curr[key] !== void 0) {
+			if (key in curr) {
 				curr[key] = value;
 			} else {
 				keep(key, value);
